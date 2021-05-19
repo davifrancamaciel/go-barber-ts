@@ -1,6 +1,8 @@
+import 'reflect-metadata' // isntalar por conta do uso de decorators vide doc type orm
 import express from 'express';
 import cors from 'cors';
 import routes from './routes';
+
 
 import './database';
 
@@ -9,6 +11,8 @@ app.use(cors());
 app.use(express.json());
 app.use(routes);
 
-app.listen(4333, () => {
-	console.log('🎉 Backend rodando 😜');
+const port = process.env.API_PORT ? process.env.API_PORT : 4333;
+
+app.listen(port, () => {
+	console.log(`🎉 Backend rodando 😜 na porta ${port}`);
 });
