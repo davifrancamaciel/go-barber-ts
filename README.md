@@ -17,6 +17,10 @@
 
 Esse projeto foi desenvolvido durante o Bootcamp da Rocketseat. Trata-se de um projeto fullstack para uma barbearia ficticia, a GoBarber, o projeto consiste na parte frontend(React), mobile(React Native) e backend(NodeJs).
 
+## Crie sua conta no link abaixo:
+
+ -  [Demo](https://go-barber-2b2f7.web.app)
+
 ## :rocket: Tecnologias
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
@@ -26,6 +30,8 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [React](https://reactjs.org/) | [React Native](https://reactnative.dev/)
 - [Docker](https://www.docker.com/)
 - [PostgreSQL](https://www.postgresql.org/) | [TypeORM](https://typeorm.io/)
+
+- [Firebase hosting](https://firebase.google.com/products/hosting)
 
 ## :notebook: Executando
 
