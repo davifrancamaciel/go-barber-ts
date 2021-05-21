@@ -1,8 +1,8 @@
 node_modules
 .env
 
-temp/*
+tmp/*
 dist/*
-!temp/.gitkeep
+!tmp/.gitkeep
 
 dist
