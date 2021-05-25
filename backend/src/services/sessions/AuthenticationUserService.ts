@@ -4,6 +4,8 @@ import { compare } from 'bcryptjs';
 
 import User from '../../models/Users';
 
+import AppError from '../../errors/AppError';
+
 import authConfig from '../../config/auth';
 
 interface Request {
@@ -23,13 +25,13 @@ class AuthenticationUserService {
 		const user = await _userRepository.findOne({ where: { email } });
 
 		if (!user) {
-			throw new Error('Usuário não encontrado');
+			throw new AppError('Usuário não encontrado', 401);
 		}
 
 		const passwordMatched = await compare(password, user.password);
 
 		if (!passwordMatched) {
-			throw new Error('Usuário não encontrado');
+			throw new AppError('Usuário não encontrado',401);
 		}
 
 		const { secret, expiresIn } = authConfig.jwt;

@@ -4,16 +4,12 @@ import AuthenticationUserService from '../services/sessions/AuthenticationUserSe
 
 class SessionsController {
 	public async create(req: Request, response: Response) {
-		try {
-			const { email, password } = req.body;
+		const { email, password } = req.body;
 
-			const authenticateUser = new AuthenticationUserService();
-			const { user, token } = await authenticateUser.execute({ email, password });
+		const authenticateUser = new AuthenticationUserService();
+		const { user, token } = await authenticateUser.execute({ email, password });
 
-			return response.json({ user, token });
-		} catch (error) {
-			return response.status(400).json({ message: error.message });
-		}
+		return response.json({ user, token });
 	}
 }
 export default new SessionsController();

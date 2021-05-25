@@ -14,18 +14,14 @@ class AppointmentController {
 	}
 
 	public async create(request: Request, response: Response) {
-		try {
-			const { provider_id, date } = request.body;
+		const { provider_id, date } = request.body;
 
-			const parsedDate = parseISO(date);
+		const parsedDate = parseISO(date);
 
-			const createAppointmentService = new CreateAppointmentService();
-			const ap = await createAppointmentService.execute({ date: parsedDate, provider_id });
+		const createAppointmentService = new CreateAppointmentService();
+		const ap = await createAppointmentService.execute({ date: parsedDate, provider_id });
 
-			return response.json(ap);
-		} catch (error) {
-			return response.status(400).json({ message: error.message });
-		}
+		return response.json(ap);
 	}
 }
 

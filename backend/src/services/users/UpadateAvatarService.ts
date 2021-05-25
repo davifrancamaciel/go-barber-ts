@@ -4,6 +4,7 @@ import fs from 'fs';
 import { getRepository } from 'typeorm';
 import User from '../../models/Users';
 import uploadConfig from '../../config/upload';
+import AppError from '../../errors/AppError';
 
 interface Request {
 	avatarFilename: string;
@@ -17,7 +18,7 @@ class UpdateUserAvatarService {
 		const user = (await _userRepository.findOne(user_id)) as User;
 
 		if (!user) {
-			throw new Error('Usuário não autenticado para alterar o avatar');
+			throw new AppError('Usuário não autenticado para alterar o avatar', 401);
 		}
 
 		if (user.avatar) {
