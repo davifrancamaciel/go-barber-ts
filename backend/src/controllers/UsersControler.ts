@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
-import CreateUserService from '../services/users/CreateService';
-import UpdateUserAvatarService from '../services/users/UpadateAvatarService';
+import CreateUserService from '@modules/users/services/CreateService';
+import UpdateUserAvatarService from '@modules/users/services/UpadateAvatarService';
 
 class AppointmentController {
 	public async create(request: Request, response: Response) {

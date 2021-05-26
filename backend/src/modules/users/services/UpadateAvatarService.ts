@@ -2,9 +2,9 @@ import path from 'path';
 import fs from 'fs';
 
 import { getRepository } from 'typeorm';
-import User from '../../models/Users';
-import uploadConfig from '../../config/upload';
-import AppError from '../../errors/AppError';
+import User from '../infra/typeorm/entities/Users';
+import uploadConfig from '@config/upload';
+import AppError from '@shared/errors/AppError';
 
 interface Request {
 	avatarFilename: string;

@@ -1,16 +1,15 @@
 import { Request, Response } from 'express';
 import { parseISO } from 'date-fns';
-import { getCustomRepository } from 'typeorm';
 
-import AppointmentRepository from '../repositories/AppointmentsRepository';
-import CreateAppointmentService from '../services/apointments/CreateService';
-import Appointment from '../models/Appointments';
+import AppointmentRepository from '@modules/apointments/infra/typeorm/repositories/AppointmentsRepository';
+import CreateAppointmentService from '@modules/apointments/services/CreateService';
 
+const appointmentRepository = new AppointmentRepository();
 class AppointmentController {
 	public async index(request: Request, response: Response) {
-		const _appointmentRepository = getCustomRepository(AppointmentRepository);
-		const appointments = await _appointmentRepository.find();
-		return response.json(appointments);
+		
+		//const appointments = await _appointmentRepository.find();
+		return response.json(null);
 	}
 
 	public async create(request: Request, response: Response) {
@@ -18,7 +17,7 @@ class AppointmentController {
 
 		const parsedDate = parseISO(date);
 
-		const createAppointmentService = new CreateAppointmentService();
+		const createAppointmentService = new CreateAppointmentService(appointmentRepository);
 		const ap = await createAppointmentService.execute({ date: parsedDate, provider_id });
 
 		return response.json(ap);
