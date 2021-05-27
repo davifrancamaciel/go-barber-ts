@@ -1,8 +1,9 @@
-import { getRepository } from 'typeorm';
 import { sign } from 'jsonwebtoken';
 import { compare } from 'bcryptjs';
+import { injectable, inject } from 'tsyringe';
 
 import User from '../infra/typeorm/entities/Users';
+import IUsersRepository from '../repositories/IUsersRepository';
 
 import AppError from '@shared/errors/AppError';
 
@@ -18,11 +19,15 @@ interface Response {
 	token: string;
 }
 
+@injectable()
 class AuthenticationUserService {
-	public async execute({ email, password }: Request): Promise<Response> {
-		const _userRepository = getRepository(User);
+	constructor(
+		@inject('UsersRepository')
+		private usersRepository: IUsersRepository
+	) {}
 
-		const user = await _userRepository.findOne({ where: { email } });
+	public async execute({ email, password }: Request): Promise<Response> {
+		const user = await this.usersRepository.findByEmail(email);
 
 		if (!user) {
 			throw new AppError('Usuário não encontrado', 401);
@@ -31,7 +36,7 @@ class AuthenticationUserService {
 		const passwordMatched = await compare(password, user.password);
 
 		if (!passwordMatched) {
-			throw new AppError('Usuário não encontrado',401);
+			throw new AppError('Usuário não encontrado', 401);
 		}
 
 		const { secret, expiresIn } = authConfig.jwt;
