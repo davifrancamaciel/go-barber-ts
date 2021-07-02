@@ -32,7 +32,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 	});
 });
 
-const port = process.env.API_PORT ? process.env.API_PORT : 4333;
+const port = process.env.API_PORT ? process.env.API_PORT : 3334;
 
 app.listen(port, () => {
 	console.log(`🎉 Backend rodando 😜 na porta ${port}`);

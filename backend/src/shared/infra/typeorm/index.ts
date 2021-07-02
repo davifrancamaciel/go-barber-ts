@@ -1,3 +1,7 @@
-import { createConnection } from 'typeorm';
+import { createConnections } from 'typeorm';
 
-createConnection();
+createConnections();
+
+// yarn typeorm migration:create -n CreateAppointments
+// yarn typeorm migration:run
+// yarn typeorm migration:revert
