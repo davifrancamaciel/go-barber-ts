@@ -1,27 +1,42 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn
+} from 'typeorm'
 
+import { Exclude, Expose } from 'class-transformer'
 @Entity('users')
 class User {
-	@PrimaryGeneratedColumn('uuid')
-	id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string
 
-	@Column()
-	name: string;
+  @Column()
+  name: string
 
-	@Column()
-	avatar: string;
+  @Column()
+  avatar: string
 
-	@Column()
-	email: string;
+  @Column()
+  email: string
 
-	@Column()
-	password: string;
+  @Column()
+  @Exclude()
+  password: string
 
-	@CreateDateColumn()
-	created_at: Date;
+  @CreateDateColumn()
+  created_at: Date
 
-	@UpdateDateColumn()
-	updated_at: Date;
+  @UpdateDateColumn()
+  updated_at: Date
+
+  @Expose({ name: 'avatar_url' })
+  get getAvatarUrl (): string | null {
+    return this.avatar
+      ? `${process.env.APP_API_URL}/files/${this.avatar}`
+      : null
+  }
 }
 
-export default User;
+export default User

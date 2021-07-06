@@ -1,7 +1,9 @@
 import 'reflect-metadata'; // isntalar por conta do uso de decorators vide doc type orm
+import 'dotenv/config'
 
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors'; // para o express capturar os erros asincronos
+import { errors } from 'celebrate';
 
 import cors from 'cors';
 import routes from './routes';
@@ -16,6 +18,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/files', express.static(uploadConfig.uploadsFolder));
 app.use(routes);
+app.use(errors());
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 	console.log(err)
