@@ -1,19 +1,25 @@
-import { Request, Response } from 'express';
-import { parseISO } from 'date-fns';
-import { container } from 'tsyringe';
+import { Request, Response } from 'express'
+import { parseISO } from 'date-fns'
+import { container } from 'tsyringe'
 
-import ListProviderMonthAvailabilityService from '@modules/apointments/services/ListProviderMonthAvailabilityService';
+import ListProviderMonthAvailabilityService from '@modules/apointments/services/ListProviderMonthAvailabilityService'
 
 class ProviderMonthAvailabilityController {
-	public async index(request: Request, response: Response) {
-		const { provider_id } = request.params;;
-		const { month, year } = request.body;
+  public async index (request: Request, response: Response) {
+    const { provider_id } = request.params
+    const { month, year } = request.query
 
-		const listProviderMonthAvailability = container.resolve(ListProviderMonthAvailabilityService);
-		const availability = await listProviderMonthAvailability.execute({ provider_id, month, year });
+    const listProviderMonthAvailability = container.resolve(
+      ListProviderMonthAvailabilityService
+    )
+    const availability = await listProviderMonthAvailability.execute({
+      provider_id,
+      month: Number(month),
+      year: Number(year)
+    })
 
-		return response.json(availability);
-	}
+    return response.json(availability)
+  }
 }
 
-export default new ProviderMonthAvailabilityController();
+export default new ProviderMonthAvailabilityController()
